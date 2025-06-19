@@ -2,15 +2,28 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    padding-top: 80px;
     background-color: #eee;
 }
 
 header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     padding: 10px 20px;
     background-color: #f2f2f2;
+    height: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: top 0.3s;
+}
+
+header.hidden {
+    top: -80px;
 }
 
 .logo {
@@ -25,8 +38,8 @@ main {
 
 .container {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    gap: 20px;
 }
 
 .text {
@@ -35,14 +48,18 @@ main {
 }
 
 .photo {
-    width: 300px;
+    flex: 1;
+    width: 100%;
+    max-width: 100%;
     border-radius: 20px;
 }
 
 .buttons {
     display: flex;
+    justify-content: center;
     gap: 20px;
     padding: 20px;
+    width: 100%;
 }
 
 .btn {
@@ -60,4 +77,11 @@ body.codex {
 
 body.o3 {
     background-color: #fff9b1;
+}
+
+.video {
+    width: 50%;
+    max-width: 300px;
+    display: block;
+    margin: 20px 0;
 }
