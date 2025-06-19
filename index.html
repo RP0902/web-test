@@ -58,7 +58,10 @@
             // wait for the slide-out animation before resetting position
             setTimeout(() => {
                 curr.classList.remove('prev');
-                curr.classList.add('next');
+                curr.classList.add('next', 'reset');
+                requestAnimationFrame(() => {
+                    curr.classList.remove('reset');
+                });
             }, 500);
         }, 3000);
     });
