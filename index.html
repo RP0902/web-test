@@ -55,9 +55,11 @@
             next.classList.remove('next');
             next.classList.add('active');
 
-            const prevIndex = (current - 1 + slides.length) % slides.length;
-            slides[prevIndex].classList.remove('prev');
-            slides[prevIndex].classList.add('next');
+            // wait for the slide-out animation before resetting position
+            setTimeout(() => {
+                curr.classList.remove('prev');
+                curr.classList.add('next');
+            }, 500);
         }, 3000);
     });
     </script>
