@@ -80,8 +80,4 @@ body.o3 {
 }
 
 .video {
-    width: 50%;
-    max-width: 300px;
-    display: block;
-    margin: 20px 0;
 }
