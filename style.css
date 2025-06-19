@@ -148,3 +148,15 @@ body.o3 {
     display: block;
     margin: 20px auto;
 }
+.scroll-animation {
+    font-size: 80px;
+    font-weight: bold;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+    transform-origin: center;
+    user-select: none;
+    pointer-events: none;
+}
