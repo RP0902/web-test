@@ -57,8 +57,12 @@
 
             // wait for the slide-out animation before resetting position
             setTimeout(() => {
+                curr.classList.add('jump');
                 curr.classList.remove('prev');
                 curr.classList.add('next');
+                // force reflow to apply the jump immediately
+                void curr.offsetWidth;
+                curr.classList.remove('jump');
             }, 500);
         }, 3000);
     });

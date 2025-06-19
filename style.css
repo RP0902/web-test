@@ -93,6 +93,11 @@ main {
     transition: transform 0.5s, opacity 0.5s;
 }
 
+/* disable transition when instantly repositioning slides */
+.codex-btn .slideshow img.jump {
+    transition: none;
+}
+
 .codex-btn .slideshow img.next {
     transform: translate(-50%, -50%) translateX(100%) scale(0.8);
     opacity: 0;
