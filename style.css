@@ -71,8 +71,9 @@ main {
     border-radius: 15px;
 }
 
-/* slideshow for the Codex button */
-.codex-btn .slideshow {
+/* slideshow for the Codex and O3 buttons */
+.codex-btn .slideshow,
+.o3-btn .slideshow {
     position: absolute;
     top: 10%;
     left: 10%;
@@ -82,7 +83,8 @@ main {
     border-radius: 15px;
 }
 
-.codex-btn .slideshow img {
+.codex-btn .slideshow img,
+.o3-btn .slideshow img {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -94,24 +96,28 @@ main {
 }
 
 /* disable transition when instantly repositioning slides */
-.codex-btn .slideshow img.jump {
+.codex-btn .slideshow img.jump,
+.o3-btn .slideshow img.jump {
     transition: none !important;
     animation: none !important;
 }
 
-.codex-btn .slideshow img.next {
+.codex-btn .slideshow img.next,
+.o3-btn .slideshow img.next {
     transform: translate(-50%, -50%) translateX(90%) scale(0.8);
     opacity: 0.5;
     cursor: pointer;
 }
 
-.codex-btn .slideshow img.active {
+.codex-btn .slideshow img.active,
+.o3-btn .slideshow img.active {
     transform: translate(-50%, -50%) translateX(0) scale(1);
     z-index: 2;
     opacity: 1;
 }
 
-.codex-btn .slideshow img.prev {
+.codex-btn .slideshow img.prev,
+.o3-btn .slideshow img.prev {
     transform: translate(-50%, -50%) translateX(-90%) scale(0.8);
     opacity: 0.5;
     cursor: pointer;
