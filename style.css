@@ -46,6 +46,7 @@ main {
     justify-content: center;
     gap: 20px;
     padding: 20px;
+    width: 100%;
 }
 
 .btn {
@@ -66,7 +67,8 @@ body.o3 {
 }
 
 .video {
-    max-width: 100%;
+    width: 50%;
+    max-width: 300px;
     display: block;
-    margin: 20px auto;
+    margin: 20px 0;
 }
