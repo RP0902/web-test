@@ -95,7 +95,8 @@ main {
 
 /* disable transition when instantly repositioning slides */
 .codex-btn .slideshow img.jump {
-    transition: none;
+    transition: none !important;
+    animation: none !important;
 }
 
 .codex-btn .slideshow img.next {
