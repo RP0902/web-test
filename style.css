@@ -25,8 +25,8 @@ main {
 
 .container {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    gap: 20px;
 }
 
 .text {
@@ -35,12 +35,15 @@ main {
 }
 
 .photo {
-    width: 300px;
+    flex: 1;
+    width: 100%;
+    max-width: 100%;
     border-radius: 20px;
 }
 
 .buttons {
     display: flex;
+    justify-content: center;
     gap: 20px;
     padding: 20px;
 }
@@ -60,4 +63,10 @@ body.codex {
 
 body.o3 {
     background-color: #fff9b1;
+}
+
+.video {
+    max-width: 100%;
+    display: block;
+    margin: 20px auto;
 }
