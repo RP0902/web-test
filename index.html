@@ -5,8 +5,7 @@
     <title>OpenAI 介绍</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="with-topbar">
-    <div class="top-bar">控制台</div>
+<body>
     <header>
         <div class="logo">OpenAI</div>
     </header>
@@ -25,17 +24,5 @@
             <a href="gpt-o3.html" class="btn">GPT-O3</a>
         </div>
     </main>
-    <script>
-        let lastScrollY = window.scrollY;
-        const bar = document.querySelector('.top-bar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > lastScrollY) {
-                bar.style.transform = 'translateY(-100%)';
-            } else {
-                bar.style.transform = 'translateY(0)';
-            }
-            lastScrollY = window.scrollY;
-        });
-    </script>
 </body>
 </html>
