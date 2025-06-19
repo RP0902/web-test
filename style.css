@@ -160,3 +160,8 @@ body.o3 {
     user-select: none;
     pointer-events: none;
 }
+.scroll-animation.fixed {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
