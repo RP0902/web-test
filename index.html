@@ -55,7 +55,10 @@
             slides[current].classList.add('prev');
 
             slides[prev].classList.remove('prev');
-            slides[prev].classList.add('next');
+            slides[prev].classList.add('next', 'jump');
+            requestAnimationFrame(() => {
+                slides[prev].classList.remove('jump');
+            });
 
             prev = (index - 1 + slides.length) % slides.length;
 
