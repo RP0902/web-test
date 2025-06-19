@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #eee;
 }
 
 header {
@@ -20,4 +21,48 @@ header {
 main {
     padding: 20px;
     line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.text {
+    flex: 1;
+}
+
+.image {
+    flex: 1;
+}
+
+.photo {
+    width: 100%;
+    border-radius: 20px;
+    height: auto;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+.btn {
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #333;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+body.codex {
+    background-color: #e6f0ff;
+}
+
+body.o3 {
+    background-color: #fff9b1;
 }
