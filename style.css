@@ -13,8 +13,9 @@ header {
     background-color: #f2f2f2;
 }
 
-body.with-topbar header {
-    margin-top: 40px;
+
+body.topbar-visible {
+    padding-top: 40px;
 }
 
 .logo {
@@ -42,6 +43,8 @@ main {
     flex: 0 0 33%;
     width: 33%;
     max-width: 33%;
+    height: auto;
+    display: block;
     border-radius: 20px;
 }
 
@@ -92,7 +95,13 @@ body.o3 {
     color: #fff;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
     z-index: 1000;
     transition: transform 0.3s;
+}
+
+.bar-title {
+    font-weight: bold;
 }
