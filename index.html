@@ -50,26 +50,27 @@
             }
         });
 
-        function setActive(index) {
-            slides[current].classList.remove('active');
-            slides[current].classList.add('prev');
+         function setActive(index) {
+             slides[current].classList.remove('active');
+             slides[current].classList.add('prev');
 
-            slides[prev].classList.remove('prev');
-            slides[prev].classList.add('next', 'jump');
-            requestAnimationFrame(() => {
-                slides[prev].classList.remove('jump');
-            });
+             const oldPrev = prev;
+             slides[oldPrev].classList.remove('prev');
+             slides[oldPrev].classList.add('next', 'jump');
+             requestAnimationFrame(() => {
+                 slides[oldPrev].classList.remove('jump');
+             });
 
-            prev = (index - 1 + slides.length) % slides.length;
+             prev = (index - 1 + slides.length) % slides.length;
 
-            slides[prev].classList.remove('next');
-            slides[prev].classList.add('prev');
+             slides[prev].classList.remove('next');
+             slides[prev].classList.add('prev');
 
-            current = index;
+             current = index;
 
-            slides[current].classList.remove('next');
-            slides[current].classList.add('active');
-        }
+             slides[current].classList.remove('next');
+             slides[current].classList.add('active');
+         }
 
         function showNext() {
             const nextIndex = (current + 1) % slides.length;
