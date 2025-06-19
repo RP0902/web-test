@@ -54,10 +54,11 @@
             slides[current].classList.remove('active');
             slides[current].classList.add('prev');
 
-            slides[prev].classList.remove('prev');
-            slides[prev].classList.add('next', 'jump');
+            const prevSlide = slides[prev];
+            prevSlide.classList.remove('prev');
+            prevSlide.classList.add('next', 'jump');
             requestAnimationFrame(() => {
-                slides[prev].classList.remove('jump');
+                prevSlide.classList.remove('jump');
             });
 
             prev = (index - 1 + slides.length) % slides.length;
