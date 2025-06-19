@@ -38,51 +38,33 @@
     document.addEventListener('DOMContentLoaded', function() {
         const slides = document.querySelectorAll('.codex-btn .slideshow img');
         let current = 0;
-        let prev = slides.length - 1;
-
         slides.forEach((img, i) => {
-            if (i === current) {
+            if (i === 0) {
                 img.classList.add('active');
-            } else if (i === prev) {
-                img.classList.add('prev');
             } else {
                 img.classList.add('next');
             }
         });
+        setInterval(() => {
+            const curr = slides[current];
+            curr.classList.remove('active');
+            curr.classList.add('prev');
 
-        function setActive(index) {
-            slides[current].classList.remove('active');
-            slides[current].classList.add('prev');
+            current = (current + 1) % slides.length;
+            const next = slides[current];
+            next.classList.remove('next');
+            next.classList.add('active');
 
-            slides[prev].classList.remove('prev');
-            slides[prev].classList.add('next');
-
-            prev = (index - 1 + slides.length) % slides.length;
-
-            slides[prev].classList.remove('next');
-            slides[prev].classList.add('prev');
-
-            current = index;
-
-            slides[current].classList.remove('next');
-            slides[current].classList.add('active');
-        }
-
-        function showNext() {
-            const nextIndex = (current + 1) % slides.length;
-            setActive(nextIndex);
-        }
-
-        let interval = setInterval(showNext, 3000);
-
-        slides.forEach((img, i) => {
-            img.addEventListener('click', () => {
-                if (i === current) return;
-                clearInterval(interval);
-                setActive(i);
-                interval = setInterval(showNext, 3000);
-            });
-        });
+            // wait for the slide-out animation before resetting position
+            setTimeout(() => {
+                curr.classList.add('jump');
+                curr.classList.remove('prev');
+                curr.classList.add('next');
+                // force reflow to apply the jump immediately
+                void curr.offsetWidth;
+                curr.classList.remove('jump');
+            }, 500);
+        }, 3000);
     });
     </script>
 </body>

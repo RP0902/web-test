@@ -99,10 +99,8 @@ main {
 }
 
 .codex-btn .slideshow img.next {
-    transform: translate(-50%, -50%) translateX(90%) scale(0.8);
-    opacity: 0.5;
-    filter: grayscale(100%);
-    cursor: pointer;
+    transform: translate(-50%, -50%) translateX(100%) scale(0.8);
+    opacity: 0;
 }
 
 .codex-btn .slideshow img.active {
@@ -112,10 +110,8 @@ main {
 }
 
 .codex-btn .slideshow img.prev {
-    transform: translate(-50%, -50%) translateX(-90%) scale(0.8);
-    opacity: 0.5;
-    filter: grayscale(100%);
-    cursor: pointer;
+    transform: translate(-50%, -50%) translateX(-100%) scale(0.8);
+    opacity: 1;
 }
 
 .btn .label {
