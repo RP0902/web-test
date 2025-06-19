@@ -68,22 +68,22 @@ main {
 
 .btn img {
     position: absolute;
-    top: 10%;
-    left: 10%;
-    width: 80%;
-    height: 80%;
-    object-fit: contain;
-    border-radius: 20px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
 }
 
 /* slideshow for the Codex and O3 buttons */
 .codex-btn .slideshow,
 .o3-btn .slideshow {
     position: absolute;
-    top: 10%;
-    left: 10%;
-    width: 80%;
-    height: 80%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     border-radius: 20px;
 }
@@ -95,8 +95,8 @@ main {
     left: 50%;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    border-radius: 20px;
+    object-fit: cover;
+    border-radius: inherit;
     transition: transform 0.5s, opacity 0.5s;
 }
 
