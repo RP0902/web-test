@@ -19,6 +19,7 @@
                 <p>目前，OpenAI以“对齐人工智能与人类利益”为核心目标，在透明性、安全性与全球合作方面持续推进，积极探索AGI的发展路径，推动技术服务于教育、医疗、科研、创意产业等多个领域。</p>
             </div>
         </div>
+        <div id="gpt4o-animation" class="scroll-animation">GPT-4o</div>
         <div class="buttons">
             <a href="codex.html" class="btn codex-btn">
                 <div class="slideshow">
@@ -108,6 +109,44 @@
 
         setupSlideshow('.codex-btn');
         setupSlideshow('.o3-btn');
+
+        const anim = document.getElementById('gpt4o-animation');
+        let start, end;
+
+        function computePositions() {
+            start = anim.offsetTop - window.innerHeight;
+            end = anim.offsetTop + window.innerHeight;
+        }
+
+        function updateAnimation() {
+            const y = window.scrollY;
+            const progress = Math.min(Math.max((y - start) / (end - start), 0), 1);
+
+            let text;
+            let scale;
+            if (progress < 0.45) {
+                text = 'GPT-4o';
+                scale = 1 - (progress / 0.45) * 0.8;
+            } else if (progress < 0.55) {
+                text = '●';
+                scale = 0.2;
+            } else {
+                text = 'GPT-o4';
+                scale = 0.2 + ((progress - 0.55) / 0.45) * 0.8;
+            }
+
+            const angle = -360 * progress;
+            anim.style.transform = 'rotate(' + angle + 'deg) scale(' + scale + ')';
+            anim.textContent = text;
+        }
+
+        computePositions();
+        updateAnimation();
+        window.addEventListener('scroll', updateAnimation);
+        window.addEventListener('resize', () => {
+            computePositions();
+            updateAnimation();
+        });
     });
     </script>
 </body>
