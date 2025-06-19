@@ -20,8 +20,12 @@
             </div>
         </div>
         <div class="buttons">
-            <a href="codex.html" class="btn">
-                <img src="media/Screenshot%202025-06-19%20at%2015.56.10.png" alt="Codex screenshot">
+            <a href="codex.html" class="btn codex-btn">
+                <div class="slideshow">
+                    <img src="media/Screenshot%202025-06-19%20at%2015.56.10.png" alt="Codex screenshot">
+                    <img src="media/roundcodex1.png" alt="Codex screenshot 1">
+                    <img src="media/roundcodex2.png" alt="Codex screenshot 2">
+                </div>
                 <span class="label">Codex</span>
             </a>
             <a href="gpt-o3.html" class="btn">
@@ -30,5 +34,32 @@
             </a>
         </div>
     </main>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('.codex-btn .slideshow img');
+        let current = 0;
+        slides.forEach((img, i) => {
+            if (i === 0) {
+                img.classList.add('active');
+            } else {
+                img.classList.add('next');
+            }
+        });
+        setInterval(() => {
+            const curr = slides[current];
+            curr.classList.remove('active');
+            curr.classList.add('prev');
+
+            current = (current + 1) % slides.length;
+            const next = slides[current];
+            next.classList.remove('next');
+            next.classList.add('active');
+
+            const prevIndex = (current - 1 + slides.length) % slides.length;
+            slides[prevIndex].classList.remove('prev');
+            slides[prevIndex].classList.add('next');
+        }, 3000);
+    });
+    </script>
 </body>
 </html>
