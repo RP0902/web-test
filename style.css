@@ -2,28 +2,23 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    padding-top: 60px;
+    padding-top: 80px;
     background-color: #eee;
 }
 
 header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     padding: 10px 20px;
     background-color: #f2f2f2;
-    height: 60px;
+    height: 80px;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    transition: top 0.3s;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     z-index: 1000;
-}
-
-header.hide {
-    top: -60px;
 }
 
 .logo {
