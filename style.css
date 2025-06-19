@@ -25,24 +25,29 @@ main {
 
 .container {
     display: flex;
-    justify-content: space-between;
     align-items: flex-start;
+    gap: 20px;
 }
 
 .text {
     flex: 1;
-    margin-right: 20px;
+}
+
+.image {
+    flex: 1;
 }
 
 .photo {
-    width: 300px;
+    width: 100%;
     border-radius: 20px;
+    height: auto;
 }
 
 .buttons {
     display: flex;
     gap: 20px;
     padding: 20px;
+    justify-content: center;
 }
 
 .btn {
