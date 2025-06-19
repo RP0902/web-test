@@ -90,20 +90,23 @@ main {
     height: 100%;
     object-fit: contain;
     border-radius: 15px;
-    transition: transform 0.5s;
+    transition: transform 0.5s, opacity 0.5s;
 }
 
 .codex-btn .slideshow img.next {
     transform: translate(-50%, -50%) translateX(100%) scale(0.8);
+    opacity: 0;
 }
 
 .codex-btn .slideshow img.active {
     transform: translate(-50%, -50%) translateX(0) scale(1);
     z-index: 2;
+    opacity: 1;
 }
 
 .codex-btn .slideshow img.prev {
     transform: translate(-50%, -50%) translateX(-100%) scale(0.8);
+    opacity: 1;
 }
 
 .btn .label {
