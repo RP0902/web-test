@@ -45,19 +45,18 @@
                 img.classList.add('next');
             }
         });
+
         setInterval(() => {
-            const curr = slides[current];
-            curr.classList.remove('active');
-            curr.classList.add('prev');
-
-            current = (current + 1) % slides.length;
-            const next = slides[current];
-            next.classList.remove('next');
-            next.classList.add('active');
-
             const prevIndex = (current - 1 + slides.length) % slides.length;
             slides[prevIndex].classList.remove('prev');
             slides[prevIndex].classList.add('next');
+
+            slides[current].classList.remove('active');
+            slides[current].classList.add('prev');
+
+            current = (current + 1) % slides.length;
+            slides[current].classList.remove('next');
+            slides[current].classList.add('active');
         }, 3000);
     });
     </script>
