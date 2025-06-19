@@ -45,13 +45,13 @@ main {
     flex-direction: column;
     gap: 20px;
     padding: 20px;
-    align-items: center;
+    align-items: stretch;
 }
 
 .btn {
     position: relative;
     display: block;
-    width: 80%;
+    width: 100%;
     padding-bottom: 50%;
     background-color: #fff;
     border-radius: 20px;
