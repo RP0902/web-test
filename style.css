@@ -59,6 +59,11 @@ main {
     color: #333;
     box-shadow: 0 0 5px rgba(0,0,0,0.1);
     overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
 }
 
 .btn img {
