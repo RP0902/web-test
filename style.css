@@ -44,7 +44,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 20px;
+    padding: 20px 0;
     align-items: stretch;
 }
 
@@ -52,7 +52,7 @@ main {
     position: relative;
     display: block;
     width: 100%;
-    padding-bottom: 75%; /* 4:3 aspect ratio */
+    padding-bottom: 40%;
     background-color: #fff;
     border-radius: 20px;
     text-decoration: none;
@@ -63,11 +63,11 @@ main {
 
 .btn img {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
     border-radius: 15px;
 }
 
