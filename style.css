@@ -93,8 +93,8 @@ main {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 90%;
-    height: 90%;
+    width: 80%;
+    height: 80%;
     object-fit: cover;
     border-radius: inherit;
     transition: transform 0.5s, opacity 0.5s;
