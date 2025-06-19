@@ -25,20 +25,6 @@
             <a href="gpt-o3.html" class="btn">GPT-O3</a>
         </div>
     </main>
-    <script>
-        let lastScrollY = window.scrollY;
-        const bar = document.querySelector('.top-bar');
-        const body = document.body;
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > lastScrollY) {
-                bar.style.transform = 'translateY(-100%)';
-                body.classList.remove('topbar-visible');
-            } else {
-                bar.style.transform = 'translateY(0)';
-                body.classList.add('topbar-visible');
-            }
-            lastScrollY = window.scrollY;
-        });
-    </script>
+
 </body>
 </html>
