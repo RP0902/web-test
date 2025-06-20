@@ -113,21 +113,22 @@
         setupSlideshow('.codex-btn');
         setupSlideshow('.o3-btn');
 
-        const anim = document.getElementById('animated');
-        const startAnchor = document.getElementById('startAnchor');
-        const endAnchor = document.getElementById('endAnchor');
-        const spacer = document.getElementById('spacer');
+        const anim         = document.getElementById('animated');
+        const startAnchor  = document.getElementById('startAnchor');
+        const endAnchor    = document.getElementById('endAnchor');
+        const spacer       = document.getElementById('spacer');
         const sectionBelow = document.getElementById('sectionBelow');
         let startY = 0, endY = 0, ticking = false;
 
         function updatePositions() {
-            startY = startAnchor.offsetTop;
-            const origEndY = endAnchor.offsetTop;
+            const start    = startAnchor.offsetTop;
+            const origEnd  = endAnchor.offsetTop;
             const sectionH = sectionBelow.offsetHeight;
-            const viewH = window.innerHeight;
-            const deficit = Math.max(viewH - sectionH, 0);
-            spacer.style.height = (origEndY - startY + deficit) + 'px';
-            endY = endAnchor.offsetTop;
+            const viewH    = window.innerHeight;
+            const deficit  = Math.max(viewH - sectionH, 0);
+            spacer.style.height = (origEnd - start + deficit) + 'px';
+            startY = start;
+            endY   = endAnchor.offsetTop;
         }
 
         function clamp(v, min, max) {
@@ -177,14 +178,14 @@
         updatePositions();
         update();
 
-        window.addEventListener('resize', () => {
+        window.addEventListener('resize', function() {
             updatePositions();
             update();
         });
 
-        window.addEventListener('scroll', () => {
+        window.addEventListener('scroll', function() {
             if (!ticking) {
-                requestAnimationFrame(() => {
+                requestAnimationFrame(function() {
                     update();
                     ticking = false;
                 });
