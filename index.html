@@ -21,6 +21,7 @@
         </div>
         <div id="startAnchor" class="anchor"></div>
         <div id="animated" class="scroll-animation"><strong>GPT-4o</strong></div>
+        <div id="spacer"></div>
         <div id="endAnchor" class="anchor"></div>
         <div id="sectionBelow" class="buttons">
             <a href="codex.html" class="btn codex-btn">
@@ -115,11 +116,16 @@
         const anim = document.getElementById('animated');
         const startAnchor = document.getElementById('startAnchor');
         const endAnchor = document.getElementById('endAnchor');
+        const spacer = document.getElementById('spacer');
         const sectionBelow = document.getElementById('sectionBelow');
         let startY = 0, endY = 0, ticking = false;
 
         function updatePositions() {
             startY = startAnchor.offsetTop;
+            endY = endAnchor.offsetTop;
+            const animationDistance = endY - startY;
+            const buffer = window.innerHeight;
+            spacer.style.height = (animationDistance + buffer) + 'px';
             endY = endAnchor.offsetTop;
         }
 

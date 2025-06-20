@@ -187,3 +187,7 @@ body.o3 {
 .anchor {
     height: 10vh;
 }
+
+#spacer {
+    height: 0;
+}
