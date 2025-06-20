@@ -47,6 +47,12 @@ main {
     padding: 20px;
     align-items: center;
 }
+.buttons.offscreen {
+    position: fixed;
+    top: 100vh;
+    left: 0;
+    width: 100%;
+}
 
 .btn {
     position: relative;
@@ -159,6 +165,11 @@ body.o3 {
     transform-origin: center;
     user-select: none;
     pointer-events: none;
+}
+.animation-placeholder {
+    width: 50vw;
+    margin: 40vh auto;
+    visibility: hidden;
 }
 
 .fixed-center {
