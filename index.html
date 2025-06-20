@@ -19,7 +19,9 @@
                 <p>目前，OpenAI以“对齐人工智能与人类利益”为核心目标，在透明性、安全性与全球合作方面持续推进，积极探索AGI的发展路径，推动技术服务于教育、医疗、科研、创意产业等多个领域。</p>
             </div>
         </div>
+        <div id="start-anchor" class="anchor"></div>
         <div id="gpt4o-animation" class="scroll-animation">GPT-4o</div>
+        <div id="end-anchor" class="anchor"></div>
         <div class="buttons">
             <a href="codex.html" class="btn codex-btn">
                 <div class="slideshow">
@@ -111,38 +113,80 @@
         setupSlideshow('.o3-btn');
 
         const anim = document.getElementById('gpt4o-animation');
-        let start, end;
+        const startAnchor = document.getElementById('start-anchor');
+        const endAnchor = document.getElementById('end-anchor');
+        let start = 0, end = 0, ticking = false;
+        let startVisible = true;
+        let endVisible = false;
 
         function computePositions() {
-            start = anim.offsetTop - window.innerHeight;
-            end = anim.offsetTop + window.innerHeight;
+            const topGap = window.innerHeight * 0.4;
+            const bottomGap = window.innerHeight * 0.4;
+            const animHeight = anim.offsetHeight;
+            startAnchor.style.height = topGap + 'px';
+            endAnchor.style.height = (animHeight + bottomGap) + 'px';
+
+            start = startAnchor.getBoundingClientRect().top + window.scrollY;
+            end = endAnchor.getBoundingClientRect().top + window.scrollY;
         }
 
-        function updateAnimation() {
-            const y = window.scrollY;
-            const progress = Math.min(Math.max((y - start) / (end - start), 0), 1);
-
-            let text;
-            let scale;
-            if (progress < 0.45) {
-                text = 'GPT-4o';
-                scale = 1 - (progress / 0.45) * 0.8;
-            } else if (progress < 0.55) {
-                text = '●';
-                scale = 0.2;
+        function updateFixedState() {
+            if (!startVisible && !endVisible) {
+                anim.classList.add('fixed-center');
             } else {
-                text = 'GPT-o4';
-                scale = 0.2 + ((progress - 0.55) / 0.45) * 0.8;
+                anim.classList.remove('fixed-center');
             }
+        }
 
-            const angle = -360 * progress;
-            anim.style.transform = 'rotate(' + angle + 'deg) scale(' + scale + ')';
-            anim.textContent = text;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.target === startAnchor) {
+                    startVisible = entry.isIntersecting;
+                } else if (entry.target === endAnchor) {
+                    endVisible = entry.isIntersecting;
+                }
+            });
+            updateFixedState();
+        });
+        observer.observe(startAnchor);
+        observer.observe(endAnchor);
+
+        function updateAnimation() {
+            updateFixedState();
+            const y = window.scrollY;
+            let progress = (y - start) / (end - start);
+            progress = Math.min(Math.max(progress, 0), 1);
+
+            if (progress > 0 && progress < 1) {
+                const angle = -720 * progress;
+                let scale;
+                if (progress < 0.5) {
+                    scale = 1 - (1 - 0.14) * (progress / 0.5);
+                } else {
+                    scale = 0.14 + (1 - 0.14) * ((progress - 0.5) / 0.5);
+                }
+                anim.textContent = (progress >= 0.45 && progress <= 0.55) ? '●' : 'GPT-4o';
+                const base = anim.classList.contains('fixed-center') ? 'translate(-50%, -50%) ' : '';
+                anim.style.transform =
+                    base + 'rotate(' + angle + 'deg) scale(' + scale + ')';
+            } else {
+                anim.style.transform = '';
+                anim.textContent = 'GPT-4o';
+            }
         }
 
         computePositions();
         updateAnimation();
-        window.addEventListener('scroll', updateAnimation);
+        updateFixedState();
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    updateAnimation();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
         window.addEventListener('resize', () => {
             computePositions();
             updateAnimation();
