@@ -122,10 +122,11 @@
 
         function updatePositions() {
             startY = startAnchor.offsetTop;
-            endY = endAnchor.offsetTop;
-            const animationDistance = endY - startY;
-            const buffer = window.innerHeight;
-            spacer.style.height = (animationDistance + buffer) + 'px';
+            const origEndY = endAnchor.offsetTop;
+            const sectionH = sectionBelow.offsetHeight;
+            const viewH = window.innerHeight;
+            const deficit = Math.max(viewH - sectionH, 0);
+            spacer.style.height = (origEndY - startY + deficit) + 'px';
             endY = endAnchor.offsetTop;
         }
 
