@@ -166,6 +166,14 @@ body.o3 {
     user-select: none;
     pointer-events: none;
 }
+.animated {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    z-index: 999;
+    transition: none;
+}
 .hidden {
     visibility: hidden;
     opacity: 0;
@@ -173,14 +181,6 @@ body.o3 {
 
 #spacer {
     width: 100%;
-}
-
-.fixed {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 999;
 }
 
 .anchor {

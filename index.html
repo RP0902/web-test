@@ -118,80 +118,53 @@
         const endAnchor = document.getElementById('end-anchor');
         const spacer = document.getElementById('spacer');
         const sectionBelow = document.querySelector('.buttons');
-        let start = 0, end = 0, ticking = false, animating = false;
+        let startY = 0, endY = 0, ticking = false;
 
-        function computePositions() {
-            start = startAnchor.offsetTop;
-            end = endAnchor.offsetTop;
+        function updatePositions() {
+            startY = startAnchor.offsetTop;
+            endY = endAnchor.offsetTop;
         }
 
-        function updateAnimation() {
-            if (!animating) return;
+        function clamp(v, min, max) {
+            return Math.max(min, Math.min(max, v));
+        }
+
+        function update() {
             const y = window.scrollY;
-            let progress = (y - start) / (end - start);
-            progress = Math.min(Math.max(progress, 0), 1);
+            const progress = clamp((y - startY) / (endY - startY), 0, 1);
+            const angle = -360 * progress;
+            const scale = 1 - progress * (1 - 0.07);
 
-            let angle = 360 * progress;
-            let scale;
-            if (progress < 0.5) {
-                scale = 1 - (1 - 0.14) * (progress / 0.5);
+            if (progress > 0 && progress < 1) {
+                anim.classList.add('animated');
+                sectionBelow.classList.add('hidden');
+                spacer.style.height = (endY - startY) + 'px';
+                anim.style.transform = `translate(-50%, -50%) rotate(${angle}deg) scale(${scale})`;
             } else {
-                scale = 0.14 + (1 - 0.14) * ((progress - 0.5) / 0.5);
+                anim.classList.remove('animated');
+                sectionBelow.classList.remove('hidden');
+                spacer.style.height = '0px';
+                anim.style.transform = '';
             }
-            let text = 'GPT-4o';
-            if (progress >= 0.45 && progress <= 0.55) {
-                text = '●';
-            }
-            anim.textContent = text;
-            anim.style.transform = 'translate(-50%, -50%) rotate(' + angle + 'deg) scale(' + scale + ')';
         }
 
-        function startAnimation() {
-            computePositions();
-            spacer.style.height = (end - start) + 'px';
-            anim.classList.add('fixed');
-            sectionBelow.classList.add('hidden');
-            animating = true;
-            updateAnimation();
-        }
+        updatePositions();
+        update();
 
-        function endAnimation() {
-            anim.classList.remove('fixed');
-            sectionBelow.classList.remove('hidden');
-            anim.style.transform = '';
-            anim.textContent = 'GPT-4o';
-            spacer.style.height = '0px';
-            animating = false;
-        }
-
-        const startObserver = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    startAnimation();
-                }
-            });
+        window.addEventListener('resize', () => {
+            updatePositions();
+            update();
         });
-        const endObserver = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    endAnimation();
-                }
-            });
-        });
-
-        startObserver.observe(startAnchor);
-        endObserver.observe(endAnchor);
 
         window.addEventListener('scroll', () => {
-            if (animating && !ticking) {
+            if (!ticking) {
                 requestAnimationFrame(() => {
-                    updateAnimation();
+                    update();
                     ticking = false;
                 });
                 ticking = true;
             }
         });
-        window.addEventListener('resize', computePositions);
     });
     </script>
 </body>
