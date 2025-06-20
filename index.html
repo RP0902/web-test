@@ -125,8 +125,8 @@
             endY = endAnchor.offsetTop;
             const animationDistance = endY - startY;
             const buffer = window.innerHeight;
-            spacer.style.height = (animationDistance + buffer) + 'px';
-            endY = endAnchor.offsetTop;
+            spacer.style.height = buffer + 'px';
+            endY = startY + animationDistance + buffer;
         }
 
         function clamp(v, min, max) {
@@ -175,6 +175,11 @@
 
         updatePositions();
         update();
+
+        window.addEventListener('load', () => {
+            updatePositions();
+            update();
+        });
 
         window.addEventListener('resize', () => {
             updatePositions();
