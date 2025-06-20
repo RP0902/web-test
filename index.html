@@ -135,10 +135,12 @@
 
             if (progress >= 0 && progress < 1) {
                 if (!placeholderInserted) {
-                    placeholder.style.height = animHeight + 'px';
+                    placeholder.style.height = Math.max(animHeight, window.innerHeight * 3) + 'px';
                     anim.insertAdjacentElement('afterend', placeholder);
                     placeholderInserted = true;
+                    computePositions();
                 }
+                document.body.classList.add('long-scroll');
                 buttons.classList.add('offscreen');
                 anim.classList.add('fixed-center');
                 let angle = -720 * progress;
@@ -159,7 +161,9 @@
                 if (placeholderInserted) {
                     placeholder.remove();
                     placeholderInserted = false;
+                    computePositions();
                 }
+                document.body.classList.remove('long-scroll');
                 buttons.classList.remove('offscreen');
                 anim.classList.remove('fixed-center');
                 anim.style.transform = '';

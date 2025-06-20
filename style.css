@@ -172,6 +172,10 @@ body.o3 {
     visibility: hidden;
 }
 
+body.long-scroll {
+    min-height: 300vh;
+}
+
 .fixed-center {
     position: fixed;
     top: 50%;
