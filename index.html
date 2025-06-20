@@ -115,11 +115,17 @@
         const anim = document.getElementById('gpt4o-animation');
         const startAnchor = document.getElementById('start-anchor');
         const endAnchor = document.getElementById('end-anchor');
+        const buttons = document.querySelector('.buttons');
+        const placeholder = document.createElement('div');
+        placeholder.className = 'animation-placeholder';
+        let placeholderInserted = false;
+        let animHeight = 0;
         let start = 0, end = 0, ticking = false;
 
         function computePositions() {
             start = startAnchor.getBoundingClientRect().top + window.scrollY;
             end = endAnchor.getBoundingClientRect().top + window.scrollY;
+            animHeight = anim.getBoundingClientRect().height;
         }
 
         function updateAnimation() {
@@ -127,7 +133,13 @@
             let progress = (y - start) / (end - start);
             progress = Math.min(Math.max(progress, 0), 1);
 
-            if (progress > 0 && progress < 1) {
+            if (progress >= 0 && progress < 1) {
+                if (!placeholderInserted) {
+                    placeholder.style.height = animHeight + 'px';
+                    anim.insertAdjacentElement('afterend', placeholder);
+                    placeholderInserted = true;
+                }
+                buttons.classList.add('offscreen');
                 anim.classList.add('fixed-center');
                 let angle = -720 * progress;
                 let scale;
@@ -144,6 +156,11 @@
                 anim.style.transform =
                     'translate(-50%, -50%) rotate(' + angle + 'deg) scale(' + scale + ')';
             } else {
+                if (placeholderInserted) {
+                    placeholder.remove();
+                    placeholderInserted = false;
+                }
+                buttons.classList.remove('offscreen');
                 anim.classList.remove('fixed-center');
                 anim.style.transform = '';
                 anim.textContent = 'GPT-4o';
