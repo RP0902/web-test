@@ -22,6 +22,7 @@
         <div id="start-anchor" class="anchor"></div>
         <div id="gpt4o-animation" class="scroll-animation">GPT-4o</div>
         <div id="end-anchor" class="anchor"></div>
+        <div id="spacer"></div>
         <div class="buttons">
             <a href="codex.html" class="btn codex-btn">
                 <div class="slideshow">
@@ -115,62 +116,74 @@
         const anim = document.getElementById('gpt4o-animation');
         const startAnchor = document.getElementById('start-anchor');
         const endAnchor = document.getElementById('end-anchor');
-        const buttons = document.querySelector('.buttons');
-        const placeholder = document.createElement('div');
-        placeholder.className = 'animation-placeholder';
-        let placeholderInserted = false;
-        let animHeight = 0;
-        let start = 0, end = 0, ticking = false;
+        const spacer = document.getElementById('spacer');
+        const sectionBelow = document.querySelector('.buttons');
+        let start = 0, end = 0, ticking = false, animating = false;
 
         function computePositions() {
-            start = startAnchor.getBoundingClientRect().top + window.scrollY;
-            end = endAnchor.getBoundingClientRect().top + window.scrollY;
-            animHeight = anim.getBoundingClientRect().height;
+            start = startAnchor.offsetTop;
+            end = endAnchor.offsetTop;
         }
 
         function updateAnimation() {
+            if (!animating) return;
             const y = window.scrollY;
             let progress = (y - start) / (end - start);
             progress = Math.min(Math.max(progress, 0), 1);
 
-            if (progress >= 0 && progress < 1) {
-                if (!placeholderInserted) {
-                    placeholder.style.height = animHeight + 'px';
-                    anim.insertAdjacentElement('afterend', placeholder);
-                    placeholderInserted = true;
-                }
-                buttons.classList.add('offscreen');
-                anim.classList.add('fixed-center');
-                let angle = -720 * progress;
-                let scale;
-                if (progress < 0.5) {
-                    scale = 1 - (1 - 0.14) * (progress / 0.5);
-                } else {
-                    scale = 0.14 + (1 - 0.14) * ((progress - 0.5) / 0.5);
-                }
-                let text = 'GPT-4o';
-                if (progress >= 0.45 && progress <= 0.55) {
-                    text = '●';
-                }
-                anim.textContent = text;
-                anim.style.transform =
-                    'translate(-50%, -50%) rotate(' + angle + 'deg) scale(' + scale + ')';
+            let angle = 360 * progress;
+            let scale;
+            if (progress < 0.5) {
+                scale = 1 - (1 - 0.14) * (progress / 0.5);
             } else {
-                if (placeholderInserted) {
-                    placeholder.remove();
-                    placeholderInserted = false;
-                }
-                buttons.classList.remove('offscreen');
-                anim.classList.remove('fixed-center');
-                anim.style.transform = '';
-                anim.textContent = 'GPT-4o';
+                scale = 0.14 + (1 - 0.14) * ((progress - 0.5) / 0.5);
             }
+            let text = 'GPT-4o';
+            if (progress >= 0.45 && progress <= 0.55) {
+                text = '●';
+            }
+            anim.textContent = text;
+            anim.style.transform = 'translate(-50%, -50%) rotate(' + angle + 'deg) scale(' + scale + ')';
         }
 
-        computePositions();
-        updateAnimation();
+        function startAnimation() {
+            computePositions();
+            spacer.style.height = (end - start) + 'px';
+            anim.classList.add('fixed');
+            sectionBelow.classList.add('hidden');
+            animating = true;
+            updateAnimation();
+        }
+
+        function endAnimation() {
+            anim.classList.remove('fixed');
+            sectionBelow.classList.remove('hidden');
+            anim.style.transform = '';
+            anim.textContent = 'GPT-4o';
+            spacer.style.height = '0px';
+            animating = false;
+        }
+
+        const startObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    startAnimation();
+                }
+            });
+        });
+        const endObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    endAnimation();
+                }
+            });
+        });
+
+        startObserver.observe(startAnchor);
+        endObserver.observe(endAnchor);
+
         window.addEventListener('scroll', () => {
-            if (!ticking) {
+            if (animating && !ticking) {
                 requestAnimationFrame(() => {
                     updateAnimation();
                     ticking = false;
@@ -178,10 +191,7 @@
                 ticking = true;
             }
         });
-        window.addEventListener('resize', () => {
-            computePositions();
-            updateAnimation();
-        });
+        window.addEventListener('resize', computePositions);
     });
     </script>
 </body>
