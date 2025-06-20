@@ -116,35 +116,53 @@
         const startAnchor = document.getElementById('start-anchor');
         const endAnchor = document.getElementById('end-anchor');
         let start = 0, end = 0, ticking = false;
+        let startVisible = true;
+        let endVisible = false;
 
         function computePositions() {
             start = startAnchor.getBoundingClientRect().top + window.scrollY;
             end = endAnchor.getBoundingClientRect().top + window.scrollY;
         }
 
+        function updateFixedState() {
+            if (!startVisible && !endVisible) {
+                anim.classList.add('fixed-center');
+            } else {
+                anim.classList.remove('fixed-center');
+            }
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.target === startAnchor) {
+                    startVisible = entry.isIntersecting;
+                } else if (entry.target === endAnchor) {
+                    endVisible = entry.isIntersecting;
+                }
+            });
+            updateFixedState();
+        });
+        observer.observe(startAnchor);
+        observer.observe(endAnchor);
+
         function updateAnimation() {
+            updateFixedState();
             const y = window.scrollY;
             let progress = (y - start) / (end - start);
             progress = Math.min(Math.max(progress, 0), 1);
 
             if (progress > 0 && progress < 1) {
-                anim.classList.add('fixed-center');
-                let angle = -720 * progress;
+                const angle = -720 * progress;
                 let scale;
                 if (progress < 0.5) {
                     scale = 1 - (1 - 0.14) * (progress / 0.5);
                 } else {
                     scale = 0.14 + (1 - 0.14) * ((progress - 0.5) / 0.5);
                 }
-                let text = 'GPT-4o';
-                if (progress >= 0.45 && progress <= 0.55) {
-                    text = '●';
-                }
-                anim.textContent = text;
+                anim.textContent = (progress >= 0.45 && progress <= 0.55) ? '●' : 'GPT-4o';
                 anim.style.transform =
-                    'translate(-50%, -50%) rotate(' + angle + 'deg) scale(' + scale + ')';
+                    'rotate(' + angle + 'deg) scale(' + scale + ')';
             } else {
-                anim.classList.remove('fixed-center');
                 anim.style.transform = '';
                 anim.textContent = 'GPT-4o';
             }
@@ -152,6 +170,7 @@
 
         computePositions();
         updateAnimation();
+        updateFixedState();
         window.addEventListener('scroll', () => {
             if (!ticking) {
                 requestAnimationFrame(() => {
