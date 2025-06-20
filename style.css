@@ -166,16 +166,21 @@ body.o3 {
     user-select: none;
     pointer-events: none;
 }
-.animation-placeholder {
-    width: 50vw;
-    margin: 40vh auto;
+.hidden {
     visibility: hidden;
+    opacity: 0;
 }
 
-.fixed-center {
+#spacer {
+    width: 100%;
+}
+
+.fixed {
     position: fixed;
     top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
 }
 
 .anchor {
