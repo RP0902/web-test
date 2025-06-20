@@ -155,7 +155,7 @@ body.o3 {
     margin: 20px auto;
 }
 .scroll-animation {
-    width: 50vw;
+    width: 50%;
     font-size: 10vw;
     font-weight: bold;
     display: flex;
@@ -179,8 +179,9 @@ body.o3 {
     opacity: 0;
 }
 
-#spacer {
-    width: 100%;
+#sectionBelow {
+    visibility: hidden;
+    opacity: 0;
 }
 
 .anchor {

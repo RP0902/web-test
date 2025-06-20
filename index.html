@@ -19,11 +19,10 @@
                 <p>目前，OpenAI以“对齐人工智能与人类利益”为核心目标，在透明性、安全性与全球合作方面持续推进，积极探索AGI的发展路径，推动技术服务于教育、医疗、科研、创意产业等多个领域。</p>
             </div>
         </div>
-        <div id="start-anchor" class="anchor"></div>
-        <div id="gpt4o-animation" class="scroll-animation">GPT-4o</div>
-        <div id="end-anchor" class="anchor"></div>
-        <div id="spacer"></div>
-        <div class="buttons">
+        <div id="startAnchor" class="anchor"></div>
+        <div id="animated" class="scroll-animation"><strong>GPT-4o</strong></div>
+        <div id="endAnchor" class="anchor"></div>
+        <div id="sectionBelow" class="buttons">
             <a href="codex.html" class="btn codex-btn">
                 <div class="slideshow">
                     <img src="media/Screenshot%202025-06-19%20at%2015.56.10.png" alt="Codex screenshot">
@@ -113,11 +112,10 @@
         setupSlideshow('.codex-btn');
         setupSlideshow('.o3-btn');
 
-        const anim = document.getElementById('gpt4o-animation');
-        const startAnchor = document.getElementById('start-anchor');
-        const endAnchor = document.getElementById('end-anchor');
-        const spacer = document.getElementById('spacer');
-        const sectionBelow = document.querySelector('.buttons');
+        const anim = document.getElementById('animated');
+        const startAnchor = document.getElementById('startAnchor');
+        const endAnchor = document.getElementById('endAnchor');
+        const sectionBelow = document.getElementById('sectionBelow');
         let startY = 0, endY = 0, ticking = false;
 
         function updatePositions() {
@@ -131,20 +129,41 @@
 
         function update() {
             const y = window.scrollY;
-            const progress = clamp((y - startY) / (endY - startY), 0, 1);
-            const angle = -360 * progress;
-            const scale = 1 - progress * (1 - 0.07);
+            let progress = clamp((y - startY) / (endY - startY), 0, 1);
+            let angle = 0;
+            let scale = 1;
+
+            if (progress <= 0.5) {
+                const p = progress * 2;
+                angle = -360 * p;
+                scale = 1 - p * (1 - 0.07);
+                anim.innerHTML = '<strong>GPT-4o</strong>';
+            } else {
+                const p = (progress - 0.5) * 2;
+                angle = -360 - 360 * p;
+                scale = 0.07 + p * (1 - 0.07);
+                anim.innerHTML = '<strong>GPT-5</strong>';
+            }
 
             if (progress > 0 && progress < 1) {
                 anim.classList.add('animated');
-                sectionBelow.classList.add('hidden');
-                spacer.style.height = (endY - startY) + 'px';
                 anim.style.transform = `translate(-50%, -50%) rotate(${angle}deg) scale(${scale})`;
+                sectionBelow.style.visibility = 'hidden';
+                sectionBelow.style.opacity = '0';
             } else {
                 anim.classList.remove('animated');
-                sectionBelow.classList.remove('hidden');
-                spacer.style.height = '0px';
                 anim.style.transform = '';
+
+                if (progress === 1) {
+                    const revealStart = endY;
+                    const revealEnd = endY + window.innerHeight;
+                    let r = clamp((y - revealStart) / (revealEnd - revealStart), 0, 1);
+                    sectionBelow.style.visibility = r > 0 ? 'visible' : 'hidden';
+                    sectionBelow.style.opacity = r;
+                } else {
+                    sectionBelow.style.visibility = 'hidden';
+                    sectionBelow.style.opacity = '0';
+                }
             }
         }
 
