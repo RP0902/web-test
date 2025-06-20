@@ -122,24 +122,25 @@
 
         // 根据滚动区域和窗口大小动态调整 spacer，高度不足时补偿
         function updatePositions() {
-            // 起始和结束锚点位置
-            startY = startAnchor.offsetTop;
-            const origEndY = endAnchor.offsetTop;
+            // 起始锚点与结束锚点原始位置
+            const start = startAnchor.offsetTop;
+            const origEnd = endAnchor.offsetTop;
 
             // 下方 section 的高度以及视口高度
             const sectionH = sectionBelow.offsetHeight;
             const viewH = window.innerHeight;
 
-            // 动画区间长度
-            const animationDistance = origEndY - startY;
             // 底部不足一屏时的差额
             const bottomDeficit = Math.max(viewH - sectionH, 0);
+            // 用于淡入下方内容的一屏距离
+            const revealDistance = viewH;
 
-            // spacer 拉伸到动画区间 + 底部差额
-            spacer.style.height = (animationDistance + bottomDeficit) + 'px';
+            // spacer 拉伸到动画区间 + 底部差额 + 淡入段
+            spacer.style.height = (origEnd - start + bottomDeficit + revealDistance) + 'px';
 
-            // 重新计算结束点位置
-            endY = endAnchor.offsetTop;
+            // 更新全局坐标，重新计算结束点位置
+            startY = start;
+            endY   = endAnchor.offsetTop;
         }
 
         function clamp(v, min, max) {
